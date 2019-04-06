@@ -34,3 +34,6 @@ data <- na.omit(data)
 
 # format effective_date as Date class
 data$effective_date <- as.Date(data$effective_date, "%Y-%m-%d")
+
+# plot simple graph
+ggplot(data, aes(data$effective_date, data$one_oz.selling)) + geom_point()
