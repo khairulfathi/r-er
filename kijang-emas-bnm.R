@@ -36,4 +36,7 @@ data <- na.omit(data)
 data$effective_date <- as.Date(data$effective_date, "%Y-%m-%d")
 
 # plot simple graph
-ggplot(data, aes(data$effective_date, data$one_oz.selling)) + geom_point()
+ggplot(data, aes(x = effective_date, y = one_oz.selling)) + geom_path(lineend = "butt", linejoin = "round", linemitre = 1, colour = "blue") + scale_x_date(date_labels = "%Y", date_breaks = "1 year")
+
+# density graph
+ggplot(data, aes(one_oz.selling)) + geom_density(fill = "lightblue") + geom_vline(aes(xintercept = mean(one_oz.selling)), color = "blue", linetype = "dashed", size = 1)
