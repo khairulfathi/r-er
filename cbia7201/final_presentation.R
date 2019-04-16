@@ -61,6 +61,16 @@ dfstud <- data.frame(Respondent, Programme, SSID, Mahallah, Usage, Satisfaction,
 dfusage <- as.data.frame(summarise.factor(dfstud$Usage))
 dfusage <- dfusage[order(-dfusage$percentage), ]
 
+# bar - Level of Satisfaction
+dfsatisfaction <- count(unique(dfstud[, c(1,6)])[, 2])
+dfsatisfaction$x[dfsatisfaction$x == 1] <- "Very Dissatisfied"
+dfsatisfaction$x[dfsatisfaction$x == 2] <- "Dissatisfied"
+dfsatisfaction$x[dfsatisfaction$x == 3] <- "Satisfied"
+dfsatisfaction$x[dfsatisfaction$x == 4] <- "Very Satisfied"
+
+plot_ly(x = dfsatisfaction$x, y = dfsatisfaction$freq, type = "bar") %>%
+layout(title = 'Overall Level of Satisfaction', yaxis = list(title = "Respondent"), xaxis = list(title = "Satisfaction Level"))
+
 # stacked bar - Level of Satisfaction by Mahallah
 dfsatisfaction <- unique(dfstud[, c(1,4,6)])
 dfsatisfaction <- aggregate(dfsatisfaction, by = list(dfsatisfaction$Mahallah, dfsatisfaction$Satisfaction), FUN = length, simplify = TRUE)
